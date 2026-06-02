@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Safeman Australia Globe"
+version = "1.0.0"
+id = "artifacts/globe-app"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24881
+
+[services.development]
+run = "pnpm --filter @workspace/globe-app run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/globe-app", "run", "build" ]
+publicDir = "artifacts/globe-app/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24881"
+BASE_PATH = "/"
